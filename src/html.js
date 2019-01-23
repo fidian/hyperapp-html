@@ -1,15 +1,116 @@
-import { h } from "hyperapp"
+export default function hyperappHtml(h) {
+    var functions = {};
 
-function vnode(name) {
-  return function (attributes, children) {
-    return typeof attributes === "object" && !Array.isArray(attributes)
-      ? h(name, attributes, children)
-      : h(name, {}, attributes)
-  }
-}
+    [
+        "a",
+        "abbr",
+        "address",
+        "area",
+        "article",
+        "aside",
+        "audio",
+        "b",
+        "bdi",
+        "bdo",
+        "blockquote",
+        "br",
+        "button",
+        "canvas",
+        "caption",
+        "cite",
+        "code",
+        "col",
+        "colgroup",
+        "data",
+        "datalist",
+        "dd",
+        "del",
+        "details",
+        "dfn",
+        "dialog",
+        "div",
+        "dl",
+        "dt",
+        "em",
+        "embed",
+        "fieldset",
+        "figcaption",
+        "figure",
+        "footer",
+        "form",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "header",
+        "hr",
+        "i",
+        "iframe",
+        "img",
+        "input",
+        "ins",
+        "kbd",
+        "label",
+        "legend",
+        "li",
+        "main",
+        "map",
+        "mark",
+        "menu",
+        "menuitem",
+        "meter",
+        "nav",
+        "object",
+        "ol",
+        "optgroup",
+        "option",
+        "output",
+        "p",
+        "param",
+        "pre",
+        "progress",
+        "q",
+        "rp",
+        "rt",
+        "rtc",
+        "ruby",
+        "s",
+        "samp",
+        "section",
+        "select",
+        "small",
+        "source",
+        "span",
+        "strong",
+        "sub",
+        "summary",
+        "sup",
+        "svg",
+        "table",
+        "tbody",
+        "td",
+        "textarea",
+        "tfoot",
+        "th",
+        "thead",
+        "time",
+        "tr",
+        "track",
+        "u",
+        "ul",
+        "video",
+        "wbr"
+    ].forEach(function (tagName) {
+        functions[tagName] = function (attributes, children) {
+            if (typeof attributes === "object" && !Array.isArray(attributes)) {
+                return h(tagName, attributes, children);
+            }
 
-{% for name in htmlTags %}
-export function {{ name }}(attributes, children) {
-  return vnode("{{ name }}")(attributes, children)
+            return h(tagName, {}, attributes);
+        };
+    });
+
+    return functions;
 }
-{% endfor %}
